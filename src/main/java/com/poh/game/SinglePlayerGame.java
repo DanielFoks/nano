@@ -9,10 +9,15 @@ import java.util.concurrent.*;
 
 public class SinglePlayerGame extends Game {
     public SinglePlayerGame(){
-        this.possiblePlayObjects = new Class[2];
+        this.possiblePlayObjects = new Class[100];
 
-        this.possiblePlayObjects[0] = NumberSquare.class;
-        this.possiblePlayObjects[1] = BombSquare.class;
+        for (int i = 0; i < 80; i++) {
+            this.possiblePlayObjects[i] = NumberSquare.class;
+        }
+
+        for (int i = 80; i < 100; i++) {
+            this.possiblePlayObjects[i] = BombSquare.class;
+        }
     }
 
     @Override
@@ -23,7 +28,7 @@ public class SinglePlayerGame extends Game {
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                    String randomSquare = possiblePlayObjects[ThreadLocalRandom.current().nextInt(0, 2)].getName();
+                    String randomSquare = possiblePlayObjects[ThreadLocalRandom.current().nextInt(0, 100)].getName();
                     System.out.println("Position: " + ThreadLocalRandom.current().nextInt(0, Game.HORIZONTAL_SIZE * Game.VERTICAL_SIZE));
                     System.out.println("Possible object: " + randomSquare);
 
